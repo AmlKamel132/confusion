@@ -4,7 +4,9 @@
     fxLayout.xs="column"
     fxLayoutAlign.gt-md="space-around center"
     fxLayoutGap="10px" 
-    fxLayoutGap.xs="0">
+    fxLayoutGap.xs="0"
+   
+    >
     
     
     
@@ -27,7 +29,7 @@
         </mat-card>
     </div>
   
-    <div fxflex="40">
+    <div fxflex="40"  *ngIf="dish">
   
       <mat-card>
           <mat-card-header>
