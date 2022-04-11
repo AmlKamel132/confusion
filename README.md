@@ -1,6 +1,7 @@
 # Confusion
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1.
+- This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1.
+- This project related exercises and my assignments for Angular coursera course 
 
 ## Development server
 
