@@ -10,7 +10,7 @@
    - install json-server ```  npm install json-server -g ``` 
    -  i added folder called json-server.zip .. you can decompress it and use it .. ( move it away from confusion project )
    - go to your folder and run  ``` json-server --watch db.json -d 2000 ``` 
-   - it should be like image after run ```json-server --watch db.json -d 2000 ```   [server-json](/server-json-img.png)
+   - it should be like image after run ```json-server --watch db.json -d 2000 ```   ![server-json](/server-json-img.png)
    
 
 ## Development server
