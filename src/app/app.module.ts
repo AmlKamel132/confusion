@@ -28,7 +28,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 
 
 
