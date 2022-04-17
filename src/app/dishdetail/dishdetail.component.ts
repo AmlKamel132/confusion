@@ -9,10 +9,37 @@ import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Comment } from '../shared/comment';
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
+
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
   styleUrls: ['./dishdetail.component.scss'],
+  animations: [
+    trigger('visibility', [
+      state(
+        'shown',
+        style({
+          transform: 'scale(1.0)',
+          opacity: 1,
+        })
+      ),
+      state(
+        'hidden',
+        style({
+          transform: 'scale(0.5)',
+          opacity: 0,
+        })
+      ),
+      transition('* => *', animate('0.5s ease-in-out')),
+    ]),
+  ],
 })
 export class DishdetailComponent implements OnInit {
   @ViewChild('commentform') commentFormDirective: any;
@@ -25,6 +52,7 @@ export class DishdetailComponent implements OnInit {
   prev: string;
   next: string;
   errorMessage: string;
+  visibility = 'shown';
 
   constructor(
     private dishService: DishService,
@@ -43,12 +71,17 @@ export class DishdetailComponent implements OnInit {
 
     this.route.params
       .pipe(
-        switchMap((params: Params) => this.dishService.getDish(params['id']))
+        switchMap((params: Params) => {
+          this.visibility = 'hidden';
+          return this.dishService.getDish(+params['id']);
+        })
       )
+
       .subscribe(
         (dish) => {
           this.dish = dish;
           this.dishcopy = dish;
+          this.visibility = 'shown';
           this.setPrevNext(dish.id);
         },
         (errorMessage) => (this.errorMessage = <any>errorMessage)
@@ -142,12 +175,18 @@ export class DishdetailComponent implements OnInit {
   onSubmit() {
     this.comment = { date: new Date(), ...this.commentForm.value };
     this.dishcopy?.comments.push(this.comment);
-    this.dishService.putDish(this.dishcopy as Dish)
-      .subscribe(dish => {
-        this.dish = dish; this.dishcopy = dish;
+    this.dishService.putDish(this.dishcopy as Dish).subscribe(
+      (dish) => {
+        this.dish = dish;
+        this.dishcopy = dish;
       },
-      errorMessage => { this.dish = null; this.dishcopy = null; this.errorMessage = <any>errorMessage; });
-      
+      (errorMessage) => {
+        this.dish = null;
+        this.dishcopy = null;
+        this.errorMessage = <any>errorMessage;
+      }
+    );
+
     this.commentForm.reset({
       author: '',
       comment: '',
