@@ -23,6 +23,7 @@ export class DishdetailComponent implements OnInit {
   dishIds: string[];
   prev: string;
   next: string;
+  errorMessage: string;
 
   constructor(
     private dishservice: DishService,
@@ -33,7 +34,6 @@ export class DishdetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.createForm();
 
     this.dishservice
@@ -44,10 +44,13 @@ export class DishdetailComponent implements OnInit {
       .pipe(
         switchMap((params: Params) => this.dishservice.getDish(params['id']))
       )
-      .subscribe((dish) => {
-        this.dish = dish;
-        this.setPrevNext(dish.id);
-      });
+      .subscribe(
+        (dish) => {
+          this.dish = dish;
+          this.setPrevNext(dish.id);
+        },
+        (errorMessage) => (this.errorMessage = <any>errorMessage)
+      );
   }
 
   formErrors = {
@@ -134,9 +137,8 @@ export class DishdetailComponent implements OnInit {
     this.location.back();
   }
 
-  onSubmit(){
-
-    this.comment = {date:new Date, ...this.commentForm.value};
+  onSubmit() {
+    this.comment = { date: new Date(), ...this.commentForm.value };
     console.log(this.comment);
 
     this.dish?.comments.push(this.comment);
@@ -144,10 +146,8 @@ export class DishdetailComponent implements OnInit {
     this.commentForm.reset({
       author: '',
       comment: '',
-      rating: 5
+      rating: 5,
     });
     this.commentFormDirective.resetForm();
-
-
   }
 }

@@ -9,24 +9,37 @@ import { LeaderService } from '../services/leader.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
   dish: Dish;
   promotion: Promotion;
-  leader:Leader;
+  leader: Leader;
+  dishErrorMessage: string;
+  leaderErrorMessage: string;
+  promotionErrorMessage: string;
 
-  constructor(private dishservice: DishService,
-    private promotionservice: PromotionService,
-    private leaderservice:LeaderService,
-    @Inject('baseURL') public baseURL) { }
+  constructor(
+    private dishService: DishService,
+    private promotionService: PromotionService,
+    private leaderService: LeaderService,
+    @Inject('baseURL') public baseURL
+  ) {}
 
   ngOnInit() {
-    this.dishservice.getFeaturedDish().subscribe(dish => this.dish = dish);
-    this.promotionservice.getFeaturedPromotion().subscribe(promotion => this.promotion = promotion);
-    this.leaderservice.getFeaturedLeader().subscribe(leader => this.leader = leader);
-  }
+    this.dishService.getFeaturedDish().subscribe(
+      (dish) => (this.dish = dish),
+      (errorMessage) => (this.dishErrorMessage = <any>errorMessage)
+    );
 
-  
+    this.promotionService.getFeaturedPromotion().subscribe(
+      (promotion) => (this.promotion = promotion),
+      (errorMessage) => (this.promotionErrorMessage = <any>errorMessage)
+    );
+
+    this.leaderService.getFeaturedLeader().subscribe(
+      (leader) => (this.leader = leader),
+      (errorMessage) => (this.leaderErrorMessage = <any>errorMessage)
+    );
+  }
 }

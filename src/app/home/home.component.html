@@ -19,6 +19,18 @@
   </mat-card-content>
 </mat-card>
 
+
+<div fxFlex [hidden]="dish || dishErrorMessage">
+  <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+</div>
+
+<div fxFlex *ngIf="dishErrorMessage">
+  <h2>Error</h2>
+  <h4>{{dishErrorMessage}}</h4>
+</div>
+
+
+
 <mat-card *ngIf="promotion" fxFlex>
   <mat-card-header>
     <div mat-card-avatar></div>
@@ -33,6 +45,16 @@
   </mat-card-content>
 </mat-card>
 
+<div fxFlex *ngIf="promotionErrorMessage">
+  <h2>Error</h2>
+  <h4>{{promotionErrorMessage}}</h4>
+</div>
+
+<div fxFlex [hidden]="promotion || promotionErrorMessage">
+  <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+</div>
+
+
 <mat-card *ngIf="leader" fxFlex>
   <mat-card-header>
     <div mat-card-avatar></div>
@@ -46,6 +68,17 @@
     <p>{{leader.description}} </p>
   </mat-card-content>
 </mat-card>
+
+
+
+<div fxFlex [hidden]="leader || leaderErrorMessage">
+  <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+</div>
+
+<div fxFlex *ngIf="leaderErrorMessage">
+  <h2>Error</h2>
+  <h4>{{leaderErrorMessage}}</h4>
+</div>
 
 
 
