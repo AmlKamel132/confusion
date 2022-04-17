@@ -29,6 +29,10 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
@@ -38,6 +42,10 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
+
+
+import { baseURL } from './shared/baseurl';
+
 
 
 @NgModule({
@@ -71,9 +79,10 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     FormsModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ {provide: 'baseURL', useValue: baseURL}],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent],
 })
