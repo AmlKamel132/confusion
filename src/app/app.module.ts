@@ -45,6 +45,7 @@ import { LoginComponent } from './login/login.component';
 
 
 import { baseURL } from './shared/baseurl';
+import { HighlightDirective } from './directives/highlight.directive';
 
 
 
@@ -59,6 +60,7 @@ import { baseURL } from './shared/baseurl';
     HomeComponent,
     ContactComponent,
     LoginComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserModule,
